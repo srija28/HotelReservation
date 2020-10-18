@@ -16,7 +16,7 @@ public class HotelReservation {
 		return true;
 	}
 	
-	public Hotel findCheapestHotelInAGivenDateRange(Date start, Date end, long weekDays) {
+	public Hotel findCheapestHotelInAGivenDateRangeWithBestRating(Date start, Date end, long weekDays) {
 		long numberOfDays = (1 + (end.getTime() - start.getTime())) / (1000 * 60 * 60 * 24);
 		long weekEnds = numberOfDays - weekDays;
 		System.out.println("Weekends: "+weekEnds+ " Weekdays: " + weekDays);
@@ -26,11 +26,11 @@ public class HotelReservation {
 			i.setTotalRate(totalCostOfStay);
 		}
 	
-		List<Hotel> listOfBestRatedHotels = hotels.stream().sorted(Comparator.comparing(Hotel::getRating))
+		List<Hotel> listOfHighestRatedHotels = hotels.stream().sorted(Comparator.comparing(Hotel::getRating))
 				.collect(Collectors.toList());
 
-		Hotel cheapestHotelStay = listOfBestRatedHotels.get(0);
-		for (Hotel i : listOfBestRatedHotels) {
+		Hotel cheapestHotelStay = listOfHighestRatedHotels.get(0);
+		for (Hotel i : listOfHighestRatedHotels) {
 			if (i.getTotalRate() <= cheapestHotelStay.getTotalRate()) {
 				if (i.getRating() > cheapestHotelStay.getRating())
 					cheapestHotelStay = i;
@@ -38,8 +38,35 @@ public class HotelReservation {
 				break;
 		}
 		return cheapestHotelStay;
-
 	}
+
+	
+	
+	public Hotel findHighestRatedHotel(Date start, Date end, long weekDays) {
+		long numberOfDays = (1 + (end.getTime() - start.getTime())) / (1000 * 60 * 60 * 24);
+		long weekEnds = numberOfDays - weekDays;
+		System.out.println("Weekends: "+weekEnds+ " Weekdays: " + weekDays);
+		for(Hotel i :hotels) {
+			long totalCostOfStay = (weekDays * i.getRegularCustomerRate())
+					+ (weekEnds * i.getRegularCustomerRateForWeekend());
+			i.setTotalRate(totalCostOfStay);
+		}
+		
+		List<Hotel> listOfHighestRatedHotels = hotels.stream().sorted(Comparator.comparing(Hotel::getRating).reversed())
+				.collect(Collectors.toList());
+		
+		Hotel highestRatedHotel = listOfHighestRatedHotels.get(0);
+		
+		for (Hotel i : listOfHighestRatedHotels) {
+			if (i.getTotalRate() <= highestRatedHotel.getTotalRate()) {
+				if (i.getRating() > highestRatedHotel.getRating())
+					highestRatedHotel= i;
+			} else
+				break;
+		}
+		return highestRatedHotel;
+	}
+
 	
 	long countWeekDays(Date start, Date end) {
 		long Weekdays = 0;
@@ -88,8 +115,10 @@ public class HotelReservation {
 			System.out.println(e.getMessage());
 		}
 		long weekDays = h.countWeekDays(startDate, endDate);
-		Hotel cheapestHotelStay = h.findCheapestHotelInAGivenDateRange(startDate, endDate, weekDays);
-		System.out.println(cheapestHotelStay);
-		System.out.println("Total cost of stay: " + cheapestHotelStay.getTotalRate() + "$");
+		Hotel highestRatedHotel = h.findHighestRatedHotel(startDate, endDate, weekDays);
+		System.out.println(highestRatedHotel);
+		System.out.println("Total cost of stay: " + highestRatedHotel.getTotalRate() + "$");
+		
+		
 	}
 }
