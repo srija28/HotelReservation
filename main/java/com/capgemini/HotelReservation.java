@@ -49,6 +49,39 @@ public class HotelReservation {
 		return cheapestHotelStay;
 	}
 	
+	public Hotel findHighestRatedHotel(Date start, Date end, long weekDays, Customer customer) {
+		long numberOfDays = (1 + (end.getTime() - start.getTime())) / (1000 * 60 * 60 * 24);
+		long weekEnds = numberOfDays - weekDays;
+		System.out.println("Weekends: "+weekEnds+ " Weekdays: " + weekDays);
+		
+		if (customer.getCustomerType().equalsIgnoreCase("Regular")) {
+			for (Hotel hotel : hotels) {
+				long totalRate = weekDays * hotel.getRegularCustomerRate()
+						+ weekEnds * hotel.getRegularCustomerRateForWeekend();
+				hotel.setTotalRate(totalRate);
+			}
+		} else if (customer.getCustomerType().equalsIgnoreCase("Reward")) {
+			for (Hotel i : hotels) {
+				long totalRate = weekDays * i.getRewardCustomerRateForWeekday()
+						+ weekEnds * i.getRewardCustomerRateForWeekday();
+				i.setTotalRate(totalRate);
+			}
+		}
+
+		List<Hotel> listOfHighestRatedHotels = hotels.stream().sorted(Comparator.comparing(Hotel::getRating).reversed())
+				.collect(Collectors.toList());
+		Hotel highestRatedHotel = listOfHighestRatedHotels.get(0);
+		for (Hotel hotel : listOfHighestRatedHotels) {
+			if (hotel.getTotalRate() <= highestRatedHotel.getTotalRate()) {
+				if (hotel.getRating() > highestRatedHotel.getRating())
+					highestRatedHotel = hotel;
+			} else
+				break;
+		}
+
+		return highestRatedHotel;
+	}
+	
 	long countWeekDays(Date start, Date end) {
 		long Weekdays = 0;
 		long Weekends = 0;
@@ -113,9 +146,9 @@ public class HotelReservation {
 		}
 		
 		long weekDays = h.countWeekDays(startDate, endDate);
-		Hotel cheapestHotelStay = h.findCheapestHotelInAGivenDateRangeWithBestRating(startDate, endDate, weekDays, c);
-		System.out.println(cheapestHotelStay);
-		System.out.println("Total cost of stay: " + cheapestHotelStay.getTotalRate() + "$");
+		Hotel highestRatedHotel = h.findHighestRatedHotel(startDate, endDate, weekDays, c);
+		System.out.println(highestRatedHotel);
+		System.out.println("Total cost of stay: " + highestRatedHotel.getTotalRate() + "$");
 		
 		
 	}
