@@ -97,27 +97,16 @@ public class HotelReservation {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Welcome to Hotel Reservation");
 		HotelReservation h = new HotelReservation();
-		Hotel h1 = new Hotel("Lakewood", 110 , 90, 3.0);
-		Hotel h2 = new Hotel("Bridgewood", 160, 50, 4.0);
-		Hotel h3 = new Hotel("Ridgewood", 220, 150, 5.0);
+		Hotel h1 = new Hotel("Lakewood", 110 , 90, 80, 80, 3.0);
+		Hotel h2 = new Hotel("Bridgewood", 160, 50, 110, 50, 4.0);
+		Hotel h3 = new Hotel("Ridgewood", 220, 150, 100, 40, 5.0);
 		h.addHotel(h1);
 		h.addHotel(h2);
 		h.addHotel(h3);
 		
-		try {
-			System.out.println("Start date :");
-			String start = sc.nextLine();
-			startDate = new SimpleDateFormat("ddMMyyyy").parse(start);
-			System.out.println("End date:");
-			String end = sc.nextLine();
-			endDate = new SimpleDateFormat("ddMMyyyy").parse(end);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		long weekDays = h.countWeekDays(startDate, endDate);
-		Hotel highestRatedHotel = h.findHighestRatedHotel(startDate, endDate, weekDays);
-		System.out.println(highestRatedHotel);
-		System.out.println("Total cost of stay: " + highestRatedHotel.getTotalRate() + "$");
+		System.out.println(h1);
+		System.out.println(h2);
+		System.out.println(h3);
 		
 		
 	}

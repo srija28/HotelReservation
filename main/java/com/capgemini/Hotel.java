@@ -4,13 +4,17 @@ public class Hotel {
 	private String hotelName;
 	private int regularCustomerRate;
 	private int regularCustomerRateForWeekend;
+	private int rewardCustomerRateForWeekday;
+	private int rewardCustomerRateForWeekend;
 	private double rating;
 	private long totalRate;
 	
-	public Hotel(String hotelName, int regularCustomerRate, int regularCustomerRateForWeekend, double rating) {
+	public Hotel(String hotelName, int regularCustomerRate, int regularCustomerRateForWeekend, int rewardCustomerRateForWeekday, int rewardCustomerRateForWeekend, double rating) {
 		this.hotelName=hotelName;
 		this.regularCustomerRate = regularCustomerRate;
 		this.regularCustomerRateForWeekend = regularCustomerRateForWeekend;
+		this.rewardCustomerRateForWeekday = rewardCustomerRateForWeekday;
+		this.rewardCustomerRateForWeekend = rewardCustomerRateForWeekend;
 		this.rating=rating;
 		this.totalRate = 0;
 	}
@@ -39,6 +43,22 @@ public class Hotel {
 		this.regularCustomerRateForWeekend = rate;
 	}
 	
+	public int getRewardCustomerRateForWeekday() {
+		return rewardCustomerRateForWeekday;
+	}
+
+	public void setRewardCustomerRateForWeekday(int rate) {
+		this.rewardCustomerRateForWeekday = rate;
+	}
+
+	public int getRewardCustomerRateForWeekend() {
+		return rewardCustomerRateForWeekend;
+	}
+
+	public void setRewardCustomerRateForWeekend(int rate) {
+		this.rewardCustomerRateForWeekend = rate;
+	}
+	
 	public long getTotalRate() {
 		return totalRate;
 	}
@@ -55,10 +75,14 @@ public class Hotel {
 		this.rating = rating;
 	}
 
+	
+	
 	@Override
 	public String toString() {
-		return "\nHotel Name: " + hotelName + "\nHotel rates for a regular customer: " + regularCustomerRate
-				+ "$ \n For Weekends: " + regularCustomerRateForWeekend + "$ \nRating: " + rating + "/5.0 ";
+		return "Hotel [hotelName=" + hotelName + ", regularCustomerRate=" + regularCustomerRate
+				+ ", regularCustomerRateForWeekend=" + regularCustomerRateForWeekend + ", rewardCustomerRateForWeekday="
+				+ rewardCustomerRateForWeekday + ", rewardCustomerRateForWeekend=" + rewardCustomerRateForWeekend
+				+ ", rating=" + rating + "]";
 	}
 
 }
