@@ -123,6 +123,7 @@ public class HotelReservation {
 		try {
 			if (type == 1) {
 				c.setCustomerType("Regular");
+				System.out.println(sc.nextLine());
 			} else if (type == 2) {
 				c.setCustomerType("Reward");
 				System.out.println(sc.nextLine());
@@ -146,9 +147,9 @@ public class HotelReservation {
 		}
 		
 		long weekDays = h.countWeekDays(startDate, endDate);
-		Hotel highestRatedHotel = h.findHighestRatedHotel(startDate, endDate, weekDays, c);
-		System.out.println(highestRatedHotel);
-		System.out.println("Total cost of stay: " + highestRatedHotel.getTotalRate() + "$");
+		Hotel cheapestRatedHotel = h.findCheapestHotelInAGivenDateRangeWithBestRating(startDate, endDate, weekDays, c);
+		System.out.println(cheapestRatedHotel);
+		System.out.println("Total cost of stay: " + cheapestRatedHotel.getTotalRate() + "$");
 		
 		
 	}
