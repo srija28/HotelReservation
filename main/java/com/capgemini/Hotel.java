@@ -4,12 +4,14 @@ public class Hotel {
 	private String hotelName;
 	private int regularCustomerRate;
 	private int regularCustomerRateForWeekend;
+	private double rating;
 	private long totalRate;
 	
-	public Hotel(String hotelName, int regularCustomerRate, int regularCustomerRateForWeekend) {
+	public Hotel(String hotelName, int regularCustomerRate, int regularCustomerRateForWeekend, double rating) {
 		this.hotelName=hotelName;
 		this.regularCustomerRate = regularCustomerRate;
 		this.regularCustomerRateForWeekend = regularCustomerRateForWeekend;
+		this.rating=rating;
 		this.totalRate = 0;
 	}
 	
@@ -44,11 +46,19 @@ public class Hotel {
 	public void setTotalRate(long rate) {
 		this.totalRate = rate;
 	}
+	
+	public double getRating() {
+		return rating;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
 
 	@Override
 	public String toString() {
 		return "\nHotel Name: " + hotelName + "\nHotel rates for a regular customer: " + regularCustomerRate
-				+ "$ \n For Weekends: " + regularCustomerRateForWeekend;
+				+ "$ \n For Weekends: " + regularCustomerRateForWeekend + "$ \nRating: " + rating + "/5.0 ";
 	}
 
 }

@@ -31,7 +31,7 @@ public class HotelReservation {
 
 	}
 	
-	private long countWeekDays(Date start, Date end) {
+	long countWeekDays(Date start, Date end) {
 		long Weekdays = 0;
 		long Weekends = 0;
 		Calendar startCalender = Calendar.getInstance();
@@ -61,9 +61,9 @@ public class HotelReservation {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Welcome to Hotel Reservation");
 		HotelReservation h = new HotelReservation();
-		Hotel h1 = new Hotel("Lakewood", 110 , 90);
-		Hotel h2 = new Hotel("Bridgewood", 160, 50);
-		Hotel h3 = new Hotel("Ridgewood", 220, 150);
+		Hotel h1 = new Hotel("Lakewood", 110 , 90, 3.0);
+		Hotel h2 = new Hotel("Bridgewood", 160, 50, 4.0);
+		Hotel h3 = new Hotel("Ridgewood", 220, 150, 5.0);
 		h.addHotel(h1);
 		h.addHotel(h2);
 		h.addHotel(h3);
