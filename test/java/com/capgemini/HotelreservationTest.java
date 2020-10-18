@@ -24,7 +24,32 @@ public class HotelreservationTest {
 		boolean check = h.addHotel(newHotel);
 		Assert.assertEquals(check, true);
 	}
+@Test
 	
+	public void findTheHighestRatedHotel() {
+		HotelReservation h = new HotelReservation();
+		Hotel h1 = new Hotel("Lakewood", 110 , 90, 80, 80, 3.0);
+		Hotel h2 = new Hotel("Bridgewood", 160, 50, 110, 50, 4.0);
+		Hotel h3 = new Hotel("Ridgewood", 220, 150, 100, 40, 5.0);
+		h.addHotel(h1);
+		h.addHotel(h2);
+		h.addHotel(h3);
+		Date start = null;
+		Date end = null;
+		
+		try {
+			start = new SimpleDateFormat("ddMMyyyy").parse("11-09-2020");
+			end = new SimpleDateFormat("ddMMyyyy").parse("12-09-2020");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		long weekDays = h.countWeekDays(start, end);
+		Customer c = new Customer();
+		c.setCustomerType("Reward");
+		Hotel hotel = h.findCheapestHotelInAGivenDateRangeWithBestRating(start, end, weekDays, c);
+		Assert.assertEquals("Ridgewood", hotel.getHotelName());
+		
+	}
 	
 
 
