@@ -25,9 +25,19 @@ public class HotelReservation {
 					+ (weekEnds * i.getRegularCustomerRateForWeekend());
 			i.setTotalRate(totalCostOfStay);
 		}
-		Hotel cheapestHotel = hotels.stream().sorted(Comparator.comparing(Hotel::getTotalRate)).findFirst()
-				.orElse(null);
-		return cheapestHotel;
+	
+		List<Hotel> listOfBestRatedHotels = hotels.stream().sorted(Comparator.comparing(Hotel::getRating))
+				.collect(Collectors.toList());
+
+		Hotel cheapestHotelStay = listOfBestRatedHotels.get(0);
+		for (Hotel i : listOfBestRatedHotels) {
+			if (i.getTotalRate() <= cheapestHotelStay.getTotalRate()) {
+				if (i.getRating() > cheapestHotelStay.getRating())
+					cheapestHotelStay = i;
+			} else
+				break;
+		}
+		return cheapestHotelStay;
 
 	}
 	
@@ -40,18 +50,17 @@ public class HotelReservation {
 		Calendar endCal = Calendar.getInstance();
 		endCal.setTime(end);
 		if (startCalender.getTimeInMillis() > endCal.getTimeInMillis()) {
-			startCalender.setTime(end);
-			endCal.setTime(start);
+			do {
+				startCalender.add(Calendar.DAY_OF_MONTH, 1);
+				if (startCalender.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY
+						&& startCalender.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+					++Weekdays;
+				}
+				startCalender.add(Calendar.DAY_OF_MONTH, 1);
+				
+			} while (startCalender.getTimeInMillis() < endCal.getTimeInMillis());
+			
 		}
-
-		do {
-			startCalender.add(Calendar.DAY_OF_MONTH, 1);
-			if (startCalender.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY
-					&& startCalender.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
-				++Weekdays;
-			}
-		} while (startCalender.getTimeInMillis() < endCal.getTimeInMillis());
-
 		return Weekdays;
 	}
 	
