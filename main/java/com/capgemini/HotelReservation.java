@@ -29,9 +29,9 @@ public class HotelReservation {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Welcome to Hotel Reservation");
 		HotelReservation h = new HotelReservation();
-		Hotel h1 = new Hotel("Lakewood", 110);
-		Hotel h2 = new Hotel("Bridgewood", 160);
-		Hotel h3 = new Hotel("Ridgewood", 220);
+		Hotel h1 = new Hotel("Lakewood", 110 , 90);
+		Hotel h2 = new Hotel("Bridgewood", 160, 50);
+		Hotel h3 = new Hotel("Ridgewood", 220, 150);
 		h.addHotel(h1);
 		h.addHotel(h2);
 		h.addHotel(h3);

@@ -3,11 +3,14 @@ package com.capgemini;
 public class Hotel {
 	private String hotelName;
 	private int regularCustomerRate;
+	private int regularCustomerRateForWeekend;
 	private long totalRate;
 	
-	public Hotel(String hotelName, int regularCustomerRate) {
+	public Hotel(String hotelName, int regularCustomerRate, int regularCustomerRateForWeekend) {
 		this.hotelName=hotelName;
 		this.regularCustomerRate = regularCustomerRate;
+		this.regularCustomerRateForWeekend = regularCustomerRateForWeekend;
+		this.totalRate = 0;
 	}
 	
 	public String getHotelName() {
@@ -26,6 +29,14 @@ public class Hotel {
 		this.regularCustomerRate = rate;
 	}
 	
+	public int getRegularCustomerRateForWeekend() {
+		return regularCustomerRateForWeekend;
+	}
+
+	public void setRegularCustomerRateForWeekend(int rate) {
+		this.regularCustomerRateForWeekend = rate;
+	}
+	
 	public long getTotalRate() {
 		return totalRate;
 	}
@@ -36,8 +47,8 @@ public class Hotel {
 
 	@Override
 	public String toString() {
-		return "\nHotel Name: " + hotelName + "\nHotel rates for a regular customer (per day): " + regularCustomerRate
-				+ "$\nTotal Cost: " + totalRate + "$ .";
+		return "\nHotel Name: " + hotelName + "\nHotel rates for a regular customer: " + regularCustomerRate
+				+ "$ \n For Weekends: " + regularCustomerRateForWeekend;
 	}
 
 }
